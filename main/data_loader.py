@@ -1,8 +1,6 @@
 import pandas as pd
 from pandas.core.frame import DataFrame
 import numpy as np
-import requests
-import io
 import matplotlib.pyplot as plt
 from math import ceil
 import seaborn as sns
@@ -10,12 +8,18 @@ import seaborn as sns
 sns.color_palette("viridis", as_cmap=True)
 
 class DataLoader:
-    def __init__(self, url: str) -> None:
-        requested = requests.get(url).content
-        requested = io.StringIO(requested.decode('utf-8'))
-        self.data = pd.read_csv(requested)
-        
+    def __init__(self, csv: str) -> None:
+        self.data = None
     
+    def load_pickle(self, pth: str)->None:
+        self.data = pd.read_pickle(pth)
+
+    def load_csv(self, csv: str)-> None:
+        self.data = pd.read_csv(csv)
+    
+    def pickle_df(self, pth :str)->None:
+        self.data.to_pickle(pth)
+
     def display(self, num: int, head: bool)->DataFrame:
         return self.data.head(num) if head else self.data.tail(num)
         
@@ -64,3 +68,5 @@ class DataLoader:
     
     def column_to_cat(self, col: list)->None:
         self.data[col] = self.data[col].astype('category')
+    
+    
