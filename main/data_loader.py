@@ -8,17 +8,23 @@ import seaborn as sns
 sns.color_palette("viridis", as_cmap=True)
 
 class DataLoader:
-    def __init__(self, csv: str) -> None:
+    def __init__(self) -> None:
         self.data = None
+    
+    def load_csv(self, csv: str)-> None:
+        self.data = pd.read_csv(csv)
     
     def load_pickle(self, pth: str)->None:
         self.data = pd.read_pickle(pth)
 
-    def load_csv(self, csv: str)-> None:
-        self.data = pd.read_csv(csv)
+    def load_feather(self, file:str)->None:
+        self.data = pd.read_feather(file)
     
     def pickle_df(self, pth :str)->None:
         self.data.to_pickle(pth)
+    
+    def feather_df(self, pth:str)-> None:
+        self.data.to_feather(pth)
 
     def display(self, num: int, head: bool)->DataFrame:
         return self.data.head(num) if head else self.data.tail(num)
