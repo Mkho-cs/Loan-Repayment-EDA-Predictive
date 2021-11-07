@@ -1,6 +1,6 @@
 import pandas as pd
 from pandas.core.frame import DataFrame
-from typing import TypeVar
+from typing import TypeVar, List
 
 Numeric = TypeVar('Numeric', int, float)
 
@@ -58,3 +58,11 @@ class DataLoader:
     def single_eqfilter(self, col: str, val)->None:
         self.data = self.data.loc[self.data[col] == val]
         return
+    
+    def groupby_sum(self, group:List[str], target: List[str])->DataFrame:
+        new = self.data.groupby(group)[target].sum().reset_index()
+        return new
+    
+    def chosen_cols(self, cols: List[str])-> None:
+        self.data = self.data[cols]
+        return None
