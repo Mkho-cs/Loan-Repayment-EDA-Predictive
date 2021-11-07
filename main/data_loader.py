@@ -1,4 +1,4 @@
-from numpy import dtype
+from numpy import dtype, not_equal
 import pandas as pd
 from pandas.core.frame import DataFrame
 from typing import TypeVar, List
@@ -6,8 +6,8 @@ from typing import TypeVar, List
 Numeric = TypeVar('Numeric', int, float)
 
 class DataLoader:
-    def __init__(self) -> None:
-        self.data = None
+    def __init__(self, df:DataFrame=None) -> None:
+        self.data = df
     
     def load_csv(self, csv: str)-> None:
         self.data = pd.read_csv(csv)
@@ -68,6 +68,6 @@ class DataLoader:
         self.data = self.data[cols]
         return None
     
-    def left_join(self, right: DataFrame, key: str)->DataFrame:
-        joined = pd.merge(self.data, right, on=key, how='left')
+    def left_join(self, right: DataFrame, left_key: str, right_key: str)->DataFrame:
+        joined = pd.merge(self.data, right, how='left', left_on=left_key, right_on=right_key)
         return joined
