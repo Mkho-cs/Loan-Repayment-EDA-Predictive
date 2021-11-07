@@ -1,6 +1,8 @@
 import pandas as pd
 from pandas.core.frame import DataFrame
+from typing import TypeVar
 
+Numeric = TypeVar('Numeric', int, float)
 
 class DataLoader:
     def __init__(self) -> None:
@@ -53,4 +55,6 @@ class DataLoader:
     def column_to_cat(self, col: list)->None:
         self.data[col] = self.data[col].astype('category')
     
-    
+    def single_eqfilter(self, col: str, val)->None:
+        self.data = self.data.loc[self.data[col] == val]
+        return
