@@ -1,3 +1,4 @@
+from numpy import dtype
 import pandas as pd
 from pandas.core.frame import DataFrame
 from typing import TypeVar, List
@@ -30,10 +31,10 @@ class DataLoader:
     def describe(self)->DataFrame:
         return self.data.describe(include='all')
     
-    def get_col_unique_freq(self)->list:
+    def get_cols_unique_freq(self, datatype:str)->list:
         arr = []
         for col in self.data:
-            if self.data[col].dtype.name == 'category':
+            if self.data[col].dtype.name == datatype:
                 grouped_data = self.data.groupby(by=col).size()
                 arr.append(grouped_data)
         
@@ -66,3 +67,7 @@ class DataLoader:
     def chosen_cols(self, cols: List[str])-> None:
         self.data = self.data[cols]
         return None
+    
+    def left_join(self, right: DataFrame, key: str)->DataFrame:
+        joined = pd.merge(self.data, right, on=key, how='left')
+        return joined
