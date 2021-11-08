@@ -1,6 +1,6 @@
 from numpy import dtype, not_equal
 import pandas as pd
-from pandas.core.frame import DataFrame
+from pandas.core.frame import DataFrame, Series
 from typing import TypeVar, List
 
 Numeric = TypeVar('Numeric', int, float)
@@ -71,3 +71,10 @@ class DataLoader:
     def left_join(self, right: DataFrame, left_key: str, right_key: str)->DataFrame:
         joined = pd.merge(self.data, right, how='left', left_on=left_key, right_on=right_key)
         return joined
+    
+    def col_parse_year(self, colname:str)->Series:
+        return pd.DatetimeIndex(self.data[colname]).year
+
+    def add_col(self, newcol: Series, colname: str)->None:
+        self.data[colname] = newcol
+        return 
