@@ -56,6 +56,12 @@ class DataLoader:
     def column_to_cat(self, col: list)->None:
         self.data[col] = self.data[col].astype('category')
     
+    def convert_dtype(self, origin: str, target: str)->None:
+        for col in self.data:
+            if self.data[col].dtype.name == origin:
+                self.data[col] = self.data[col].astype(target)
+        return
+    
     def single_eqfilter(self, col: str, val)->None:
         self.data = self.data.loc[self.data[col] == val]
         return
@@ -93,3 +99,4 @@ class DataLoader:
     def drop_na_rows(self)->None:
         self.data.dropna(inplace=True)
         return
+    
