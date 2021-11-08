@@ -78,3 +78,18 @@ class DataLoader:
     def add_col(self, newcol: Series, colname: str)->None:
         self.data[colname] = newcol
         return 
+    
+    def na_per_col(self)->DataFrame:
+        return self.data.isna().sum()
+    
+    def fillna_median(self, colname: str)->None:
+        self.data[colname].fillna(self.data[colname].median(), inplace=True)
+        return
+    
+    def interpolate_smooth(self, colname: str)-> None:
+        self.data[colname].interpolate(method='akima', inplace=True)
+        return
+    
+    def drop_na_rows(self)->None:
+        self.data.dropna(inplace=True)
+        return
