@@ -1,4 +1,5 @@
-from sklearn.preprocessing import OrdinalEncoder, MinMaxScaler
+from typing import List
+from sklearn.preprocessing import OrdinalEncoder, LabelEncoder, MinMaxScaler, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import roc_auc_score,roc_curve, f1_score, confusion_matrix
@@ -8,8 +9,11 @@ import matplotlib.pyplot as plt
 Data preprocessing
 """
 def create_cat_encoder(cols_cat: list)->ColumnTransformer:
-    cat_encoder = ColumnTransformer([("cat", OrdinalEncoder(), cols_cat)], remainder='passthrough')
+    cat_encoder = ColumnTransformer([("ordinal_enc", OrdinalEncoder(), cols_cat)], remainder='passthrough')
     return cat_encoder
+
+def create_label_encoder(target: list)->ColumnTransformer:
+    return ColumnTransformer([('label_enc', LabelEncoder(), target)], remainder='passthrough')
 
 def create_pipeline(pipe: list)->Pipeline:
     pipeline = Pipeline(pipe)
@@ -20,6 +24,9 @@ def pipeline_fit_transform(pipeline: Pipeline, data):
 
 def create_minmax_scaler():
     return MinMaxScaler()
+
+def create_standard_scaler(cols_cont: list)->ColumnTransformer:
+    return ColumnTransformer([("standard_scaler", StandardScaler(), cols_cont)], remainder='passthrough')
 
 """
 Predictive modelling
