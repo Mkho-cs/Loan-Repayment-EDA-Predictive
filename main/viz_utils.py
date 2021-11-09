@@ -34,10 +34,10 @@ def hist_subplots(df: DataFrame, subrow:int, figsize_ep=5, nbins=15)->Tuple[plt.
             if current == length:
                 return fig, axes
 
-def heatmap(corr: DataFrame)->None: 
+def heatmap(df: DataFrame)->None: 
     plt.figure(figsize=(15, 10))
-    mask = np.zeros_like(corr)
+    mask = np.zeros_like(df)
     mask[np.triu_indices_from(mask)] = True
-    sns.heatmap(corr, annot=True, mask=mask, cmap="viridis", linewidths=0.2, linecolor='black')
+    sns.heatmap(df, annot=True, mask=mask, cmap="viridis", linewidths=0.2, linecolor='black')
     return
 
