@@ -100,6 +100,4 @@ class DataLoader:
         self.data.dropna(inplace=True)
         return
     
-    def get_correlation(self)->DataFrame:
-        return self.data.corr()
     
