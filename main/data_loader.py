@@ -101,7 +101,10 @@ class DataLoader:
         return
 
     def cat_col_names(self)->List[str]:
-        return [col for col in self.data if self.data[col].dtype.name=='category']
+        return [col for col in self.data if self.data[col].dtype.name == 'category']
+    
+    def noncat_col_names(self)->List[str]:
+        return [col for col in self.data if self.data[col].dtype.name !='category']
     
     def factorize_cat(self)->None:
         cat_cols_arr = self.cat_col_names()
