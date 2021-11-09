@@ -99,5 +99,14 @@ class DataLoader:
     def drop_na_rows(self)->None:
         self.data.dropna(inplace=True)
         return
+
+    def cat_col_names(self)->List[str]:
+        return [col for col in self.data if self.data[col].dtype.name=='category']
     
+    def factorize_cat(self)->None:
+        cat_cols_arr = self.cat_col_names()
+        self.data[cat_cols_arr] = self.data[cat_cols_arr].apply(lambda x: pd.factorize(x)[0])
+        return
+       
     
+  
