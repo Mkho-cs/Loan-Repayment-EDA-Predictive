@@ -18,10 +18,10 @@ def bar_subplots(data: list, subrow: int, figsize_ep=5)->None:
             if current == len(data):
                 return fig, axes
 
-def corr_heatmap(df: DataFrame)->None:
+def heatmap(corr: DataFrame)->None:
     plt.figure(figsize=(15, 10))
-    mask = np.zeros_like(df.corr())
+    mask = np.zeros_like(corr)
     mask[np.triu_indices_from(mask)] = True
-    sns.heatmap(df.corr(), annot=True, mask=mask, cmap="viridis", linewidths=0.2, linecolor='black')
+    sns.heatmap(corr, annot=True, mask=mask, cmap="viridis", linewidths=0.2, linecolor='black')
     return
 
