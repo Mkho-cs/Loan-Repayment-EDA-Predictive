@@ -1,0 +1,8 @@
+notebook==6.4.5
+pip-chill==1.0.1
+pyarrow==6.0.0
+requests==2.26.0
+seaborn==0.11.2
+sklearn==0.0
+typing-extensions==3.10.0.2
+xgboost==1.5.0
